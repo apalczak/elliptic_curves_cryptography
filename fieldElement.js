@@ -37,6 +37,25 @@ class FieldElement {
         const num = (first.num + second.num) % first.prime;
         return new FieldElement(num, first.prime);
     }
+
+    static sub(first, second) {
+        if (
+            !(first instanceof FieldElement) ||
+            !(second instanceof FieldElement)
+        ) {
+            const error = new Error(
+                `One of arguments is not final field element`
+            );
+            throw error;
+        }
+        if (first.prime !== second.prime) {
+            const error = new Error(`Arguments have different prime numbers`);
+            throw error;
+        }
+
+        const num = (first.prime + first.num - second.num) % first.prime;
+        return new FieldElement(num, first.prime);
+    }
 }
 
 module.exports = FieldElement;

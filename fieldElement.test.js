@@ -69,4 +69,38 @@ describe("Final Field Element tests", () => {
         };
         expect(errorFunction).toThrow("Arguments have different prime numbers");
     });
+
+    it("Validates the substraction of the two correct final field elements a>b", () => {
+        const first = new FieldElement(13, 19);
+        const second = new FieldElement(6, 19);
+        const result = FieldElement.sub(first, second);
+        expect(result).toEqual({ num: 7, prime: 19 });
+    });
+
+    it("Validates the substraction of the two correct final field elements a<b", () => {
+        const first = new FieldElement(6, 19);
+        const second = new FieldElement(13, 19);
+        const result = FieldElement.sub(first, second);
+        expect(result).toEqual({ num: 12, prime: 19 });
+    });
+
+    it("Unable to add argument that is not a final field element", () => {
+        const first = new FieldElement(3, 5);
+        const second = 2;
+        const errorFunction = () => {
+            return FieldElement.sub(first, second);
+        };
+        expect(errorFunction).toThrow(
+            "One of arguments is not final field element"
+        );
+    });
+
+    it("Unable to sub two final field elements with different primes", () => {
+        const first = new FieldElement(3, 5);
+        const second = new FieldElement(4, 6);
+        const errorFunction = () => {
+            return FieldElement.sub(first, second);
+        };
+        expect(errorFunction).toThrow("Arguments have different prime numbers");
+    });
 });
